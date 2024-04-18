@@ -355,7 +355,6 @@ void HashTable<K, V, Prober, Hash, KEqual>::remove(const KeyType &key) {
     if (h == npos || !table_[h] || table_[h]->deleted)
         return;
     table_[h]->deleted = true;
-    table_[h]->
     size_--;
 }
 
