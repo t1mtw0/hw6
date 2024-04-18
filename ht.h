@@ -353,7 +353,7 @@ void HashTable<K, V, Prober, Hash, KEqual>::remove(const KeyType &key) {
         return;
     HASH_INDEX_T h = this->probe(key);
     if (h == npos || !table_[h] || table_[h]->deleted)
-        throw std::logic_error("Cannot delete key.");
+        return;
     table_[h]->deleted = true;
     size_--;
 }
