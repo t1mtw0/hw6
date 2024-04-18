@@ -341,8 +341,8 @@ void HashTable<K, V, Prober, Hash, KEqual>::insert(const ItemType &p) {
     } else {
         HashItem *item = new HashItem(p);
         table_[h] = item;
+        size_++;
     }
-    size_++;
 }
 
 // completed
