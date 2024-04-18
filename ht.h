@@ -350,6 +350,8 @@ void HashTable<K, V, Prober, Hash, KEqual>::insert(const ItemType &p) {
 template <typename K, typename V, typename Prober, typename Hash,
           typename KEqual>
 void HashTable<K, V, Prober, Hash, KEqual>::remove(const KeyType &key) {
+    if (size_ == 0)
+        return;
     HASH_INDEX_T h = this->probe(key);
     if (h == npos || !table_[h])
         throw std::logic_error("Cannot delete key.");
