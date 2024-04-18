@@ -312,7 +312,7 @@ HashTable<K, V, Prober, Hash, KEqual>::~HashTable() {
     for (HASH_INDEX_T i = 0; i < CAPACITIES[mIndex_]; i++) {
         if (table_[i] == nullptr)
             continue;
-        free(table_[i]);
+        delete table_[i];
     }
 }
 
