@@ -269,6 +269,7 @@ class HashTable {
     // ADD MORE DATA MEMBERS HERE, AS NECESSARY
     double resizeAlpha_;
     HASH_INDEX_T size_;
+    HASH_INDEX_T numAdded_;
 };
 
 // ----------------------------------------------------------------------------
@@ -296,6 +297,7 @@ HashTable<K, V, Prober, Hash, KEqual>::HashTable(double resizeAlpha,
     resizeAlpha_ = resizeAlpha;
     mIndex_ = 0;
     size_ = 0;
+    numAdded_ = 0;
     table_ = {};
     for (HASH_INDEX_T i = 0; i < CAPACITIES[mIndex_]; i++) {
         table_.push_back(nullptr);
@@ -331,7 +333,7 @@ size_t HashTable<K, V, Prober, Hash, KEqual>::size() const {
 template <typename K, typename V, typename Prober, typename Hash,
           typename KEqual>
 void HashTable<K, V, Prober, Hash, KEqual>::insert(const ItemType &p) {
-    if ((double)size() / (double)CAPACITIES[mIndex_] >= resizeAlpha_)
+    if ((double)numAdded_ / (double)CAPACITIES[mIndex_] >= resizeAlpha_)
         resize();
     HASH_INDEX_T h = this->probe(p.first);
     if (h == npos)
@@ -342,6 +344,7 @@ void HashTable<K, V, Prober, Hash, KEqual>::insert(const ItemType &p) {
         HashItem *item = new HashItem(p);
         table_[h] = item;
         size_++;
+        numAdded_++;
     }
 }
 
