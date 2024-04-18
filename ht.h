@@ -324,14 +324,14 @@ bool HashTable<K, V, Prober, Hash, KEqual>::empty() const {
 template <typename K, typename V, typename Prober, typename Hash,
           typename KEqual>
 size_t HashTable<K, V, Prober, Hash, KEqual>::size() const {
-   return CAPACITIES[mIndex_];
+   return size_;
 }
 
 // completed
 template <typename K, typename V, typename Prober, typename Hash,
           typename KEqual>
 void HashTable<K, V, Prober, Hash, KEqual>::insert(const ItemType &p) {
-    if (size_ + 1 >= CAPACITIES[mIndex_] * resizeAlpha_)
+    if (size() + 1 >= CAPACITIES[mIndex_] * resizeAlpha_)
         resize();
     HASH_INDEX_T h = this->probe(p.first);
     if (h == npos)
