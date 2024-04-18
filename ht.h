@@ -459,6 +459,7 @@ void HashTable<K, V, Prober, Hash, KEqual>::resize() {
             table_[h] = oldTable[i];
         }
     }
+    numAdded_ = size_;
 }
 
 // Almost complete
