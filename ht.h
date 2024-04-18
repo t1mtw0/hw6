@@ -101,7 +101,8 @@ struct DoubleHashProber : public Prober<KeyType> {
         if (this->numProbes_ == this->m_) {
             return this->npos;
         }
-        HASH_INDEX_T loc = (this->start_ + this->dhstep_ * this->numProbes_) % this->m_;
+        HASH_INDEX_T loc =
+            (this->start_ + this->dhstep_ * this->numProbes_) % this->m_;
         this->numProbes_++;
         return loc;
     }
@@ -326,7 +327,7 @@ bool HashTable<K, V, Prober, Hash, KEqual>::empty() const {
 template <typename K, typename V, typename Prober, typename Hash,
           typename KEqual>
 size_t HashTable<K, V, Prober, Hash, KEqual>::size() const {
-   return size_;
+    return size_;
 }
 
 // completed
@@ -478,7 +479,8 @@ HashTable<K, V, Prober, Hash, KEqual>::probe(const KeyType &key) const {
         }
         // fill in the condition for this else if statement which should
         // return 'loc' if the given key exists at this location
-        else if (kequal_(key, table_[loc]->item.first) && !table_[loc]->deleted) {
+        else if (kequal_(key, table_[loc]->item.first) &&
+                 !table_[loc]->deleted) {
             return loc;
         }
         loc = prober_.next();
