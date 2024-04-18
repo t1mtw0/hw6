@@ -101,9 +101,8 @@ struct DoubleHashProber : public Prober<KeyType> {
         if (this->numProbes_ == this->m_) {
             return this->npos;
         }
-        HASH_INDEX_T loc = (this->start_ + this->dhstep_) % this->m_;
+        HASH_INDEX_T loc = (this->start_ + this->dhstep_ * this->numProbes_) % this->m_;
         this->numProbes_++;
-        this->dhstep_ += this->dhstep_;
         return loc;
     }
 };
@@ -353,7 +352,7 @@ void HashTable<K, V, Prober, Hash, KEqual>::remove(const KeyType &key) {
     if (size_ == 0)
         return;
     HASH_INDEX_T h = this->probe(key);
-    if (h == npos || !table_[h])
+    if (h == npos || !table_[h] || table_[h]->deleted)
         throw std::logic_error("Cannot delete key.");
     table_[h]->deleted = true;
     size_--;
