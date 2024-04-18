@@ -453,7 +453,7 @@ void HashTable<K, V, Prober, Hash, KEqual>::resize() {
         if (!oldTable[i])
             continue;
         if (oldTable[i]->deleted) {
-            free(oldTable[i]);
+            delete oldTable[i];
             oldTable[i] = nullptr;
         } else {
             HASH_INDEX_T h = this->probe(oldTable[i]->item.first);
