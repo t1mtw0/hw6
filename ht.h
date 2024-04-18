@@ -337,7 +337,7 @@ void HashTable<K, V, Prober, Hash, KEqual>::insert(const ItemType &p) {
     if (h == npos)
         throw std::logic_error("No spot to insert key.");
     if (table_[h]) {
-        table_[h]->item = p;
+        table_[h]->item.second = p.second;
     } else {
         HashItem *item = new HashItem(p);
         table_[h] = item;
