@@ -364,7 +364,7 @@ template <typename K, typename V, typename Prober, typename Hash,
 typename HashTable<K, V, Prober, Hash, KEqual>::ItemType const *
 HashTable<K, V, Prober, Hash, KEqual>::find(const KeyType &key) const {
     HASH_INDEX_T h = this->probe(key);
-    if ((npos == h) || nullptr == table_[h] || table_[h]->deleted) {
+    if ((npos == h) || nullptr == table_[h]) {
         return nullptr;
     }
     return &table_[h]->item;
@@ -376,7 +376,7 @@ template <typename K, typename V, typename Prober, typename Hash,
 typename HashTable<K, V, Prober, Hash, KEqual>::ItemType *
 HashTable<K, V, Prober, Hash, KEqual>::find(const KeyType &key) {
     HASH_INDEX_T h = this->probe(key);
-    if ((npos == h) || nullptr == table_[h] || table_[h]->deleted) {
+    if ((npos == h) || nullptr == table_[h]) {
         return nullptr;
     }
     return &table_[h]->item;
@@ -474,7 +474,7 @@ HashTable<K, V, Prober, Hash, KEqual>::probe(const KeyType &key) const {
         }
         // fill in the condition for this else if statement which should
         // return 'loc' if the given key exists at this location
-        else if (kequal_(key, table_[loc]->item.first)) {
+        else if (kequal_(key, table_[loc]->item.first) && !table_[loc]->deleted) {
             return loc;
         }
         loc = prober_.next();
