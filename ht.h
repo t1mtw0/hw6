@@ -324,7 +324,7 @@ bool HashTable<K, V, Prober, Hash, KEqual>::empty() const {
 template <typename K, typename V, typename Prober, typename Hash,
           typename KEqual>
 size_t HashTable<K, V, Prober, Hash, KEqual>::size() const {
-   return size_;
+   return CAPACITIES[mIndex_];
 }
 
 // completed
