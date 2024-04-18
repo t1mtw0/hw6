@@ -355,6 +355,7 @@ void HashTable<K, V, Prober, Hash, KEqual>::remove(const KeyType &key) {
     if (h == npos || !table_[h] || table_[h]->deleted)
         return;
     table_[h]->deleted = true;
+    table_[h]->
     size_--;
 }
 
@@ -364,7 +365,7 @@ template <typename K, typename V, typename Prober, typename Hash,
 typename HashTable<K, V, Prober, Hash, KEqual>::ItemType const *
 HashTable<K, V, Prober, Hash, KEqual>::find(const KeyType &key) const {
     HASH_INDEX_T h = this->probe(key);
-    if ((npos == h) || nullptr == table_[h]) {
+    if ((npos == h) || nullptr == table_[h] || table_[h]->deleted) {
         return nullptr;
     }
     return &table_[h]->item;
@@ -376,7 +377,7 @@ template <typename K, typename V, typename Prober, typename Hash,
 typename HashTable<K, V, Prober, Hash, KEqual>::ItemType *
 HashTable<K, V, Prober, Hash, KEqual>::find(const KeyType &key) {
     HASH_INDEX_T h = this->probe(key);
-    if ((npos == h) || nullptr == table_[h]) {
+    if ((npos == h) || nullptr == table_[h] || table_[h]->deleted) {
         return nullptr;
     }
     return &table_[h]->item;
